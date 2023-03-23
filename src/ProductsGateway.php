@@ -14,7 +14,7 @@ class ProductsGateway
     {
         $sql = 'SELECT product.id, product.sku, product.name,
                 product.price, attribute.attributeName AS attribute,
-                product.attributeValue AS value FROM product JOIN attribute on attribute.id = product.attributeId
+                product.attributeValue AS value, attribute.unit FROM product JOIN attribute on attribute.id = product.attributeId
                 ORDER BY id';
 
         $stmt = $this->conn->query($sql);
@@ -23,7 +23,8 @@ class ProductsGateway
     }
 
     public function createProduct (object $data)
-    {
+    {   
+        
         $sql = 'INSERT INTO product (sku, name, price, attributeId, attributeValue)
                 VALUES (:sku, :name, :price, :attributeId, :attributeValue)';
 
@@ -36,12 +37,16 @@ class ProductsGateway
         $stmt->bindValue(":attributeValue", $data->attributeValue, PDO::PARAM_STR);
 
         $stmt->execute();
+
+        echo json_encode($data);
         
         return ($this->conn->lastInsertId());
     }
 
     public function deleteProducts (array $ids)
     {   
+        echo json_encode($ids);
+
         $sep_ids = implode(",",$ids);
 
         $sql = "DELETE FROM product WHERE id IN ($sep_ids)";

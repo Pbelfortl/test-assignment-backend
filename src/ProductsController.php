@@ -29,7 +29,7 @@ class ProductsController
 
             $this->respondCreated($id);
 
-        } elseif ($method == "DELETE") {
+        } elseif ($method == "PATCH") {
 
             $data = json_decode(file_get_contents("php://input"));
 
