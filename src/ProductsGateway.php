@@ -37,16 +37,12 @@ class ProductsGateway
         $stmt->bindValue(":attributeValue", $data->attributeValue, PDO::PARAM_STR);
 
         $stmt->execute();
-
-        echo json_encode($data);
         
         return ($this->conn->lastInsertId());
     }
 
     public function deleteProducts (array $ids)
     {   
-        echo json_encode($ids);
-
         $sep_ids = implode(",",$ids);
 
         $sql = "DELETE FROM product WHERE id IN ($sep_ids)";

@@ -17,7 +17,7 @@ class ProductsController
         } elseif ($method == "POST") {
 
             $data = json_decode(file_get_contents("php://input"));
-
+            
             $errors = $this->validateData($data);
 
             if(!empty($errors)){
@@ -39,7 +39,7 @@ class ProductsController
 
         } else {
             
-            $this->respondMethodNotAllowed("GET, POST, DELETE");
+            $this->respondMethodNotAllowed("GET, POST, PATCH");
         }
     }
 
